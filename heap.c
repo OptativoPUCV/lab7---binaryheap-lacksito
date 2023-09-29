@@ -30,37 +30,7 @@ void* heap_top(Heap* pq)
 
 void heap_push(Heap* pq, void* data, int priority)
 {
-  if (pq->size >= pq->capac) 
-  {
-    int newCapac = (pq->capac * 2) + 1;
-    pq->heapArray = (heapElem*)realloc(pq->heapArray,sizeof(heapElem) * newCapac);
-  pq->capac = newCapac;
-  }
 
-  int currentIndex = pq->size;
-  pq->heapArray[currentIndex].data = data;
-  pq->heapArray[currentIndex].priority = priority;
-  pq->size++;
-
-  while (currentIndex > 0) 
-  {
-    int parentIndex = (currentIndex - 1) / 2;
-
-    if (pq->heapArray[currentIndex].priority > pq->heapArray[parentIndex].priority) 
-    {
-      // Intercambiar el elemento con su padre
-      heapElem temp = pq->heapArray[currentIndex];
-      pq->heapArray[currentIndex] = pq->heapArray[parentIndex];
-      pq->heapArray[parentIndex] = temp;
-
-      currentIndex = parentIndex;
-      } 
-    else 
-    {
-      break; // El elemento está en la posición correcta
-    }
-  }
-}
 
 
 
