@@ -68,6 +68,39 @@ void heap_pop(Heap* pq)
   pq->heapArray[0] = pq->heapArray[pq->size - 1];
   pq->size--;
   
+  //Realizar proceso de hundir el elemento
+  int currentIndex = 0;
+
+  while(1)
+    {
+      int leftChildIndex = 2 * currentIndex + 1;
+      int rightChildIndex = 2 * currentIndex + 2;
+      
+      int largeIndex = currentIndex;
+
+      //Encontrar el indice del elemento mas grande
+      if (leftChildIndex < pq->size && pq->heapArray[leftChildIndex].priority > pq-> heapArray[largeIndex].priority)
+      {
+        largeIndex = leftChildIndex;
+      }
+      if (rightChildIndex < pq->size && pq->heapArray[rightChildIndex].priority > pq->heapArray[largeIndex].priority)
+      {
+        largeIndex = rightChildIndex;
+      }
+      if (largeIndex != currentIndex)
+      {
+        //Intercambiar el elemento con el hijo mas grande
+        heapElem temp = pq->heapArray[currentIndex];
+        pq->heapArray[currentIndex] = pq->heapArray[largeIndex];
+        pq->heapArray[largeIndex] = temp;
+
+        currentIndex = largeIndex;
+      }
+      else
+      {
+        break;
+      }
+    }
 }
 
 Heap* createHeap()
